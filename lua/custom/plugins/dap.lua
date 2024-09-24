@@ -10,8 +10,7 @@ return {
     config = function()
       local dap = require 'dap'
       local ui = require 'dapui'
-      local python_path = table.concat({ vim.fn.stdpath 'data', 'mason', 'packages', 'debugpy', 'venv', 'bin', 'python' }, '/'):gsub('//+', '/')
-      require('dap-python').setup(python_path)
+      require('dap-python').setup 'python'
       require('dapui').setup()
 
       -- Handled by nvim-dap-go
@@ -32,10 +31,12 @@ return {
         require('dapui').eval(nil, { enter = true })
       end)
 
-      vim.keymap.set('n', '<space><C-c>', dap.continue)
-      vim.keymap.set('n', '<space><C-s>', dap.step_into)
-      vim.keymap.set('n', '<space><C-b>', dap.step_out)
-      vim.keymap.set('n', '<space><C-b>', dap.step_back)
+      vim.keymap.set('n', '<space>dc', dap.continue)
+      vim.keymap.set('n', '<space>di', dap.step_into)
+      vim.keymap.set('n', '<space>do', dap.step_over)
+      vim.keymap.set('n', '<space>du', dap.step_out)
+      vim.keymap.set('n', '<space>db', dap.step_back)
+      vim.keymap.set('n', '<space>dr', dap.restart)
 
       dap.listeners.before.attach.dapui_config = function()
         ui.open()
